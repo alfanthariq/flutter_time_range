@@ -43,12 +43,12 @@ class MyAppState extends State<MyApp> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Pilih jam kegiatan"),
+            title: Text("Choose event time"),
             content: TimeRangePicker(
-              backText: "Kembali",
-              nextText: "Lanjut",
-              cancelText: "Batal",
-              selectText: "Pilih",
+              backText: "Back",
+              nextText: "Next",
+              cancelText: "Cancel",
+              selectText: "Select",
               onSelect: (from, to) {
                 _messangerKey.currentState.showSnackBar(
                     SnackBar(content: Text("From : $from, To : $to")));

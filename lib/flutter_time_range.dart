@@ -171,7 +171,7 @@ class _TimeRangePickerState extends State<TimeRangePicker>
                     ),
                     Padding(
                         padding: EdgeInsets.only(left: 10, right: 10),
-                        child: Text(":")),
+                        child: Text(":", style: TextStyle(fontSize: 30))),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),

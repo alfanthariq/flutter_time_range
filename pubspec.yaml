@@ -1,8 +1,7 @@
 name: flutter_time_range
 description: A flutter widget that allowing users to choose time range (from - to) 
 version: 0.0.1
-author: alfanthariq
-homepage: alfanthariq.com
+homepage: https://alfanthariq.com
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
