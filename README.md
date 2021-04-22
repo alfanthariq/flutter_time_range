@@ -1,4 +1,4 @@
-# flutter_time_range
+# flutter_time_range [![Build Status](https://travis-ci.com/alfanthariq/flutter_time_range.svg?branch=master)](https://travis-ci.com/github/alfanthariq/flutter_time_range)
 
 A flutter widget that allowing users to choose time range (from - to) 
 
