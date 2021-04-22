@@ -45,6 +45,10 @@ class MyAppState extends State<MyApp> {
           return AlertDialog(
             title: Text("Choose event time"),
             content: TimeRangePicker(
+              initialFromHour: DateTime.now().hour,
+              initialFromMinutes: DateTime.now().minute,
+              initialToHour: DateTime.now().hour,
+              initialToMinutes: DateTime.now().minute,
               backText: "Back",
               nextText: "Next",
               cancelText: "Cancel",

@@ -4,7 +4,7 @@ A flutter widget that allowing users to choose time range (from - to)
 
 ## Showcase
 
-![ezgif com-gif-maker](timerangedialog.gif)
+![ezgif com-gif-maker](https://raw.githubusercontent.com/alfanthariq/flutter_time_range/master/timerangedialog.gif)
 
 
 ## Example

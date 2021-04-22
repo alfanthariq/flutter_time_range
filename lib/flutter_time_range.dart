@@ -7,6 +7,10 @@ typedef onSelectCallback = void Function(TimeOfDay from, TimeOfDay to);
 typedef onCancelCallback = void Function();
 
 class TimeRangePicker extends StatefulWidget {
+  final int? initialFromHour,
+      initialToHour,
+      initialFromMinutes,
+      initialToMinutes;
   final onSelectCallback? onSelect;
   final onCancelCallback? onCancel;
   final String tabFromText,
@@ -21,6 +25,10 @@ class TimeRangePicker extends StatefulWidget {
 
   TimeRangePicker(
       {Key? key,
+      @required this.initialFromHour,
+      @required this.initialToHour,
+      @required this.initialFromMinutes,
+      @required this.initialToMinutes,
       this.onSelect,
       this.onCancel,
       this.tabFromText = "From",
@@ -61,6 +69,11 @@ class _TimeRangePickerState extends State<TimeRangePicker>
         _selectedTab = _tabController.index;
       });
     });
+
+    _jamFrom = widget.initialFromHour!;
+    _jamTo = widget.initialToHour!;
+    _menitFrom = widget.initialFromMinutes!;
+    _menitTo = widget.initialToMinutes!;
   }
 
   @override
