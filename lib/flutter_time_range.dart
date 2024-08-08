@@ -63,6 +63,8 @@ class TimeRangePicker extends StatefulWidget {
   /// If true, user can change value of time manually with textfield
   final bool editable;
 
+  /// If true, user choose invalid time
+
   /// If false, AM-PM toggle will show.
   /// initial time is normal DateTime and will convert into 12 hours format.
   /// output time is normal TimeOfDay
@@ -120,10 +122,10 @@ class TimeRangePicker extends StatefulWidget {
 
   TimeRangePicker(
       {Key? key,
-      @required this.initialFromHour,
-      @required this.initialToHour,
-      @required this.initialFromMinutes,
-      @required this.initialToMinutes,
+      required this.initialFromHour,
+      required this.initialToHour,
+      required this.initialFromMinutes,
+      required this.initialToMinutes,
       this.onSelect,
       this.onCancel,
       this.tabFromText = "From",
@@ -164,6 +166,8 @@ class TimeRangePicker extends StatefulWidget {
 
 class _TimeRangePickerState extends State<TimeRangePicker>
     with SingleTickerProviderStateMixin {
+  bool isInvalidTime = false;
+
   late TabController _tabController;
   int _jamFrom = 0;
   int _menitFrom = 0;
@@ -297,14 +301,14 @@ class _TimeRangePickerState extends State<TimeRangePicker>
                                     minWidth: 90.0,
                                     minHeight: 30,
                                     cornerRadius: 20.0,
-                                    activeBgColor: widget.activeBgColor,
+                                    activeBgColor: [widget.activeBgColor],
                                     activeFgColor: widget.activeFgColor,
                                     inactiveBgColor: widget.inactiveBgColor,
                                     inactiveFgColor: widget.inactiveFgColor,
                                     labels: ['AM', 'PM'],
                                     initialLabelIndex: fromIndex,
                                     onToggle: (index) {
-                                      fromIndex = index;
+                                      fromIndex = index ?? 0;
                                     },
                                   ),
                                 ),
@@ -438,6 +442,12 @@ class _TimeRangePickerState extends State<TimeRangePicker>
                               ),
                             ],
                           ),
+                          SizedBox(height: 12),
+                          if (isInvalidTime)
+                            Text(
+                              'Invalid time values',
+                              style: TextStyle(color: Colors.red),
+                            )
                         ],
                       ),
                     ),
@@ -458,14 +468,14 @@ class _TimeRangePickerState extends State<TimeRangePicker>
                                     minWidth: 90.0,
                                     minHeight: 30,
                                     cornerRadius: 20.0,
-                                    activeBgColor: widget.activeBgColor,
+                                    activeBgColor: [widget.activeBgColor],
                                     activeFgColor: widget.activeFgColor,
                                     inactiveBgColor: widget.inactiveBgColor,
                                     inactiveFgColor: widget.inactiveFgColor,
                                     labels: ['AM', 'PM'],
                                     initialLabelIndex: toIndex,
                                     onToggle: (index) {
-                                      toIndex = index;
+                                      toIndex = index ?? 0;
                                     },
                                   ),
                                 ),
@@ -689,9 +699,18 @@ class _TimeRangePickerState extends State<TimeRangePicker>
                             : toIndex == 1
                                 ? (_jamTo + 12)
                                 : _jamTo;
-                        widget.onSelect?.call(
-                            TimeOfDay(hour: jamFr, minute: _menitFrom),
-                            TimeOfDay(hour: jamTo, minute: _menitTo));
+                        var from = TimeOfDay(hour: jamFr, minute: _menitFrom);
+                        var to = TimeOfDay(hour: jamTo, minute: _menitTo);
+                        if (to.hour < from.hour ||
+                            (to.hour == from.hour && to.minute < from.minute)) {
+                          print(isInvalidTime.toString());
+                          setState(() {
+                            isInvalidTime = true;
+                          });
+                          print(isInvalidTime.toString());
+                        } else {
+                          widget.onSelect?.call(from, to);
+                        }
                       }
                     },
                     child: Row(
